@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Munna Cosmetics</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#ff4d88; --red:#ff1a1a; --black:#111; --white:#fff; --gray:#777;
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:linear-gradient(135deg,#ffe6f0,#fff0f5);color:var(--black);}
+header{background:var(--black);color:var(--white);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;}
+header h1{font-size:1.8em;color:var(--pink);}
+nav a{color:var(--white);margin-left:15px;text-decoration:none;font-weight:500;cursor:pointer;transition:.3s;}
+nav a:hover{color:var(--pink);}
+section{padding:60px 20px;max-width:1100px;margin:auto;display:none;}
+section.active{display:block;}
+h2,h3{text-align:center;}
+h3{font-size:2em;margin-bottom:30px;color:var(--pink);}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px;}
+.product{border-radius:15px;text-align:center;padding:15px;background:var(--white);box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:.3s;}
+.product:hover{transform:translateY(-5px);box-shadow:0 6px 20px rgba(0,0,0,0.25);}
+.product img{width:100%;border-radius:15px;}
+.product h4{margin-top:10px;color:var(--black);}
+.product p{color:var(--gray);}
+button{background:var(--pink);color:var(--white);border:none;padding:10px 15px;cursor:pointer;border-radius:8px;transition:.3s;font-weight:600;}
+button:hover{background:var(--red);}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:var(--white);border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 15px rgba(0,0,0,0.3);cursor:pointer;z-index:100;}
+.whatsapp img{width:35px;height:35px;}
+input,textarea{padding:10px;margin:5px 0;width:100%;border-radius:8px;border:1px solid #ccc;}
+textarea{resize:none;}
+.hero{background:url('https://via.placeholder.com/1200x500/ffcccc/000000?text=Munna+Cosmetics') center/cover no-repeat;border-radius:15px;color:#fff;padding:80px 20px;text-align:center;margin-bottom:50px;}
+.hero h2{font-size:2.5em;margin-bottom:20px;text-shadow:2px 2px 8px rgba(0,0,0,0.5);}
+.hero p{font-size:1.2em;text-shadow:1px 1px 5px rgba(0,0,0,0.5);}
+@media(max-width:768px){.hero h2{font-size:2em;}.grid{gap:15px;}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Munna Cosmetics</h1>
+<nav>
+<a onclick="showSection('home')">Home</a>
+<a onclick="showSection('products')">Products</a>
+<a onclick="showSection('about')">About</a>
+<a onclick="showSection('contact')">Contact</a>
+<a onclick="showSection('admin')">Admin</a>
+</nav>
+</header>
+
+<!-- Hero / Home -->
+<section id="home" class="active">
+<div class="hero">
+<h2>خوبصورتی آپ کے انداز میں</h2>
+<p>Premium Cosmetics for your confidence & style</p>
+<button onclick="showSection('products')">Shop Now</button>
+</div>
+</section>
+
+<!-- Products -->
+<section id="products">
+<h3>ہمارے پراڈکٹس</h3>
+<div class="grid" id="productGrid"></div>
+</section>
+
+<!-- About -->
+<section id="about">
+<h3>About Us</h3>
+<p style="text-align:center;max-width:800px;margin:auto;font-size:1.2em;">
+Munna Cosmetics میں ہم ہر پراڈکٹ آپ کے انداز کے مطابق پیش کرتے ہیں۔ ہماری کوشش ہے کہ ہر look کو perfect بنایا جائے اور confidence بڑھایا جائے۔
+</p>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+<h3>Contact Us</h3>
+<p style="text-align:center;">Email: ali635525611@gmail.com</p>
+<p style="text-align:center;">WhatsApp: <a href="https://wa.me/923197560048" target="_blank">Click to Chat</a></p>
+</section>
+
+<!-- Admin -->
+<section id="admin">
+<h3>Admin Panel</h3>
+<input type="password" id="adminPass" placeholder="Enter admin password">
+<button onclick="login()">Login</button>
+<div id="adminPanel" style="display:none;margin-top:30px;">
+<h3>Manage Products</h3>
+<input type="text" id="pName" placeholder="Product Name">
+<input type="text" id="pDesc" placeholder="Product Description">
+<input type="text" id="pImg" placeholder="Image URL">
+<button onclick="addProduct()">Add Product</button>
+<div class="grid" id="adminGrid" style="margin-top:20px;"></div>
+</div>
+</section>
+
+<footer style="text-align:center;padding:20px 0;background:var(--black);color:var(--white);margin-top:30px;">
+<p>© 2025 Munna Cosmetics | All Rights Reserved</p>
+<p>Contact: ali635525611@gmail.com</p>
+</footer>
+
+<a href="https://wa.me/923197560048" target="_blank" class="whatsapp">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<script>
+// Section Switch
+let sections=document.querySelectorAll('section');
+function showSection(id){
+sections.forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+
+// Products Data
+let products=JSON.parse(localStorage.getItem('products'))||[
+{name:"Lipstick",desc:"High shine & long lasting color",img:"https://via.placeholder.com/250x250?text=Lipstick"},
+{name:"Foundation",desc:"Perfect coverage for every tone",img:"https://via.placeholder.com/250x250?text=Foundation"},
+{name:"Perfume",desc:"Fragrance that defines you",img:"https://via.placeholder.com/250x250?text=Perfume"}
+];
+
+function renderProducts(){
+let grid=document.getElementById('productGrid');
+grid.innerHTML='';
+products.forEach(p=>{
+let div=document.createElement('div');
+div.className='product';
+div.innerHTML=`<img src="${p.img}" alt="${p.name}"><h4>${p.name}</h4><p>${p.desc}</p>`;
+grid.appendChild(div);
+});
+renderAdmin();
+}
+renderProducts();
+
+// Admin Panel
+const password="admin123";
+function login(){
+let pass=document.getElementById('adminPass').value;
+if(pass===password){document.getElementById('adminPanel').style.display='block';}else{alert("Wrong password!");}
+}
+
+function renderAdmin(){
+let grid=document.getElementById('adminGrid');
+if(!grid) return;
+grid.innerHTML='';
+products.forEach((p,i)=>{
+let div=document.createElement('div');
+div.className='product';
+div.innerHTML=`<img src="${p.img}" alt="${p.name}"><h4>${p.name}</h4><p>${p.desc}</p>
+<button onclick="deleteProduct(${i})">Delete</button>`;
+grid.appendChild(div);
+});
+}
+
+function addProduct(){
+let name=document.getElementById('pName').value;
+let desc=document.getElementById('pDesc').value;
+let img=document.getElementById('pImg').value;
+if(name && desc && img){
+products.push({name,desc,img});
+localStorage.setItem('products',JSON.stringify(products));
+renderProducts();
+document.getElementById('pName').value='';
+document.getElementById('pDesc').value='';
+document.getElementById('pImg').value='';
+}
+}
+
+function deleteProduct(i){
+products.splice(i,1);
+localStorage.setItem('products',JSON.stringify(products));
+renderProducts();
+}
+</script>
+</body>
+</html>
